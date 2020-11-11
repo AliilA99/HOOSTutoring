@@ -12,6 +12,10 @@ class SessionForm(ModelForm):
 		fields = ['sessionid', 'study_area', 'capacity', 'location', 'date', 'time', 'description']
 
 
+def login(request):
+	template_name = 'Home/login.html'
+	return render(request, template_name)
+
 def session_create(request):
 	template_name = 'Home/session_create.html'
 	form = SessionForm(request.POST or None)
