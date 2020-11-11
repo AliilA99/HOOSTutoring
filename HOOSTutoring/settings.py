@@ -32,12 +32,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'Home.apps.HomeConfig',
+    'Login.apps.LoginConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -74,13 +77,24 @@ WSGI_APPLICATION = 'HOOSTutoring.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'us-cdbr-east-02.cleardb.com',
+        'USER': 'b16b2e35f64c0a',
+        'NAME': 'heroku_6c6d8000f0979f7',
+        'PASSWORD': '26fc27ec',
+        'OPTIONS': {'ssl': {'ssl-cert': '/private/etc/ssl/cert.pem'}},
+
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
