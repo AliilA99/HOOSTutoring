@@ -13,10 +13,12 @@
         <h3>Log In or Sign Up!</h3>
 
         <form action="{% url 'home' %}">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
-            <label for="password">Password:</label>
-            <input type="text" id="password" name="password">
+            <label for="user_id">User ID:</label>
+            <input type="text" id="user_id" name="user_id">
+            <label for="f_name">First Name:</label>
+            <input type="text" id="f_name" name="f_name">
+            <label for="l_name">Last Name:</label>
+            <input type="text" id="l_name" name="l_name">
             <button type="submit" name="login-signup" value="login">Log In!</button>
             <button type="submit" name="login-signup" value="signup">Sign Up!</button>
         </form>
