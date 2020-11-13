@@ -74,11 +74,7 @@
                         {% for message in messages %}
                         <center><p id="messages">{{message}} </p></center>
                         {% endfor %}   
-                        <div class="mt-4">
-                            <div class="d-flex justify-content-center links">
-                        Don't have an account? <a href="{% url 'login' %}" class="ml-2">Sign Up</a>
-                            </div>
-                        </div> 
+                        <button name="login-signup" class = "btn login_btn" value="signup">Sign Up</button>
                     </div>
                 </div>
             </div>
