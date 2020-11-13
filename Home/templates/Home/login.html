@@ -47,6 +47,11 @@
             color: #000;
             
         }
+        #messages{
+            color: #000;
+            padding: 10px;
+            margin-top: 10px;
+        }
         }
 
     </style>
@@ -66,11 +71,14 @@
                         <input type="text" id="f_name" name="f_name"placeholder = "First Name" class = "form_container">
                         <input type="text" id="l_name" name="l_name" placeholder = "Last Name", class = "form_container">
                         <center><button type="submit" name= "login-signup" class = "btn login_btn" value="login">Login!</button></center>
+                        {% for message in messages %}
+                        <center><p id="messages">{{message}} </p></center>
+                        {% endfor %}   
                         <div class="mt-4">
                             <div class="d-flex justify-content-center links">
                         Don't have an account? <a href="{% url 'login' %}" class="ml-2">Sign Up</a>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div>
