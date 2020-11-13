@@ -58,8 +58,6 @@ def home(request):
 					break
 			if not user_in:
 				return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-			else:
-				request.session['comp_id'] = request.GET['user_id']
 			# Redirect back to last page if info provided isn't in the DB
 			# Make an ELSE statmemnt to pass through user id through to other pages
 		else:
@@ -73,7 +71,6 @@ def home(request):
 			else:
 				u = User(computingid = request.GET['user_id'], name_last = request.GET['l_name'], name_first = request.GET['f_name'])
 				u.save()
-				request.session['comp_id'] = request.GET['user_id']
 			# Make ELSE statement to pass through a session var to the other pages AND add it to the DB
 			# Redirect back if userid already found in DB, otherwise set session var to user id
 	return render(request,'Home/home.html')
