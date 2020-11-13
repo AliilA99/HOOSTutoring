@@ -5,6 +5,7 @@ from django.views.generic.edit import DeleteView
 from django.forms import ModelForm
 from django.http import HttpResponseRedirect
 from Home.models import Session, User
+from django.contrib import messages
 
 
 class SessionForm(ModelForm):
@@ -52,6 +53,7 @@ def home(request):
 	if request.method == 'GET':
 		if request.GET['login-signup'] == 'login':
 			user_in = False
+			messages.info(request, 'INVALID LOGIN ATTEMPT')
 			for i in User.objects.all():
 				if i.name_first == request.GET['f_name'] and i.name_last == request.GET['l_name'] and i.computingid == request.GET['user_id']:
 					user_in = True
@@ -70,7 +72,7 @@ def home(request):
 				return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 			else:
 				u = User(computingid = request.GET['user_id'], name_last = request.GET['l_name'], name_first = request.GET['f_name'])
-				u.save()
+				u.save();
 			# Make ELSE statement to pass through a session var to the other pages AND add it to the DB
 			# Redirect back if userid already found in DB, otherwise set session var to user id
 	return render(request,'Home/home.html')
