@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
 from django.views.generic.edit import DeleteView
 from django.forms import ModelForm
-from Home.models import Session
+from Home.models import Session, User
 
 
 class SessionForm(ModelForm):
@@ -67,7 +67,7 @@ def home(request):
 					break
 			if user_in:
 				return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-			# Make ELSE statement to pass through a session var to the other pages
+			# Make ELSE statement to pass through a session var to the other pages AND add it to the DB
 			# Redirect back if userid already found in DB, otherwise set session var to user id
 	return render(request,'Home/home.html')
 
