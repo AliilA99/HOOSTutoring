@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView, UpdateView
 from django.forms import ModelForm
 from django.http import HttpResponseRedirect
 from Home.models import Session, User
 from django.contrib import messages
+
 
 
 class SessionForm(ModelForm):
@@ -29,6 +30,19 @@ def session_create(request):
 	return render(request, template_name, {'form':form})
 
 
+class SessionUpdateView(UpdateView):
+	model = Session
+	fields = [
+		'study_area',
+		'capacity',
+		'location',
+		'date',
+		'time',
+		'description',
+	]
+	template_name = 'Home/session_update.html'
+	success_url = '/home/'
+
 class SessionListView(ListView):
 	model = Session
 	template_name = 'Home/session_view.html'
@@ -47,7 +61,6 @@ class SessionDeleteView(DeleteView):
 	model = Session
 	template_name = 'Home/session_delete.html'
 	success_url = '/home/'
-
 
 def home(request):
 	if request.method == 'GET':
@@ -76,4 +89,8 @@ def home(request):
 			# Make ELSE statement to pass through a session var to the other pages AND add it to the DB
 			# Redirect back if userid already found in DB, otherwise set session var to user id
 	return render(request,'Home/home.html')
+
+def login(request):
+	template_name = 'Home/login.html'
+	return render(request, template_name)
 

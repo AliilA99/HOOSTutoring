@@ -11,18 +11,25 @@
 
   <body>
 
-    <div class="text-center">
-        <h3>Welcome !</h3>
+</div>
+
+    <div class="jumbotron" style="position: relative;">
+        <div contenteditable>
+                <h1>Welcome to <span style="color: orange">HOOS</span>Tutoring</h1>
+        </div>
+        <p class="lead">Thank you for visiting the website!</p>
+        <hr class="my-10">
         <div class = "container">
             <div class = "row text-center">
-                <div class="col-md-6">
-                    <button class="btn btn-link btn-lg"><a href="{% url 'session_create' %}">Create Tutoring Session</a></button>
-                    <button class="btn btn-link btn-lg"><a href="{% url 'session_view' %}">View Session(s)</a></button>
-                     <button class="btn btn-link btn-lg"><a href="{% url 'session_view' %}">Delete Session(s)</a></button>
+                <div class="col-md-8">
+                    <div class="text-center">
+                        <button class="btn btn-warning"><a href="{% url 'session_create' %}"><span style="color: white">Create Session!</span></button>
+                        <button class="btn btn-warning"><a href="{% url 'session_view' %}"><span style="color: white">View Session(s)!</button>
+                    </div>  
                 </div>
             </div>
         </div>
     </div>
-    
+ 
   </body>
 </html>
