@@ -6,6 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from datetime import datetime, date
 
 
 class Area(models.Model):
@@ -27,7 +28,7 @@ class Bulletin(models.Model):
 
 class Contains(models.Model):
     bulletinid = models.CharField(db_column='bulletinID', primary_key=True, max_length=10)  # Field name made lowercase.
-    sessionid = models.CharField(db_column='sessionID', max_length=10)  # Field name made lowercase.
+    sessionid = models.IntegerField(db_column='sessionID')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -37,7 +38,7 @@ class Contains(models.Model):
 
 class Creates(models.Model):
     computingid = models.CharField(db_column='computingID', primary_key=True, max_length=10)  # Field name made lowercase.
-    sessionid = models.CharField(db_column='sessionID', max_length=10)  # Field name made lowercase.
+    sessionid = models.IntegerField(db_column='sessionID')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -67,7 +68,7 @@ class Has(models.Model):
 
 class Participants(models.Model):
     computingid = models.CharField(db_column='computingID', primary_key=True, max_length=10)  # Field name made lowercase.
-    sessionid = models.CharField(db_column='sessionID', max_length=10)  # Field name made lowercase.
+    sessionid = models.IntegerField(db_column='sessionID')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -76,24 +77,21 @@ class Participants(models.Model):
 
 
 class Session(models.Model):
-    sessionid = models.CharField(db_column='sessionID', primary_key=True, max_length=10)  # Field name made lowercase.
+    sessionid = models.AutoField(primary_key=True)
     study_area = models.CharField(max_length=100)
     capacity = models.IntegerField()
     location = models.CharField(max_length=100)
-    date = models.DateField()
-    time = models.TimeField()
+    date = models.DateField(default = date.today)
+    time = models.TimeField(default = datetime.time(datetime.now()))
     description = models.CharField(max_length=200)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'session'
-
-    def __str__(self):
-        return self.sessionid
 
 
 class SessionRating(models.Model):
-    sessionid = models.CharField(db_column='sessionID', primary_key=True, max_length=10)  # Field name made lowercase.
+    sessionid = models.IntegerField(db_column='sessionID', primary_key=True)  # Field name made lowercase.
     rating = models.FloatField()
 
     class Meta:

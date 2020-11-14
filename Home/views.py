@@ -12,7 +12,7 @@ from django.contrib import messages
 class SessionForm(ModelForm):
 	class Meta:
 		model = Session
-		fields = ['sessionid', 'study_area', 'capacity', 'location', 'date', 'time', 'description']
+		fields = ['study_area', 'capacity', 'location', 'date', 'time', 'description']
 
 
 def login(request):
@@ -63,6 +63,7 @@ class SessionDeleteView(DeleteView):
 	success_url = '/home/'
 
 def home(request):
+	'''
 	if request.method == 'GET':
 		if request.GET['login-signup'] == 'login':
 			user_in = False
@@ -88,6 +89,7 @@ def home(request):
 				u.save();
 			# Make ELSE statement to pass through a session var to the other pages AND add it to the DB
 			# Redirect back if userid already found in DB, otherwise set session var to user id
+			'''
 	return render(request,'Home/home.html')
 
 def login(request):
