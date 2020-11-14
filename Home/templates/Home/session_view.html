@@ -28,7 +28,6 @@
         <h3>Available Session(s)</h3>
         <div class="text-center">
           {% for session in sessions %}
-              <h4>Session: {{session.sessionid}}</h4>
               <h4>Study area: {{session.study_area}}</h4>
               <button class="btn btn-outline-success"><a href="{% url 'session_update' session.sessionid %}">Update</a></button>
               <button class="btn btn-outline-primary"><a href="{% url 'session_detail' session.sessionid %}">Detail</a></button>

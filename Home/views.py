@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
+from django.db import connection
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
 from django.views.generic.edit import DeleteView, UpdateView
 from django.forms import ModelForm
 from django.http import HttpResponseRedirect
-from Home.models import Session, User
+from Home.models import User, Creates, Session
 from django.contrib import messages
 
 
@@ -14,6 +15,11 @@ class SessionForm(ModelForm):
 		model = Session
 		fields = ['study_area', 'capacity', 'location', 'date', 'time', 'description']
 
+class UserForm(ModelForm):
+	class Meta:
+		model = User
+		fields = ['computingid', 'name_first', 'name_last']
+
 
 def login(request):
 	template_name = 'Home/login.html'
@@ -21,13 +27,20 @@ def login(request):
 
 def session_create(request):
 	template_name = 'Home/session_create.html'
-	form = SessionForm(request.POST or None)
+	form1 = UserForm(request.POST or None)
+	form2 = SessionForm(request.POST or None)
 
-	if form.is_valid():
-		form.save()
+
+	if form1.is_valid() and form2.is_valid():
+		form1.save()
+		form2.save()
+		computingid = form1.cleaned_data['computingid']
+		sessionid = Session.objects.latest('sessionid').sessionid
+		creates = Creates(computingid = computingid, sessionid = sessionid)
+		creates.save()
 		return redirect('home')
 
-	return render(request, template_name, {'form':form})
+	return render(request, template_name, {'form1':form1, 'form2':form2})
 
 
 class SessionUpdateView(UpdateView):
