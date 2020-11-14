@@ -29,7 +29,8 @@
         <div class="text-center">
             <form method="POST" class="post-form">
                 {% csrf_token %}
-                {{ form | crispy}}
+                {{ form1 | crispy}}
+                {{ form2 | crispy}}
                 <div align="center">
                  <button class="btn btn-outline-info" type="submit">Submit</button>
                  <button class="btn btn-outline-danger"><a href="{% url 'home' %}">Cancel</a></button>
