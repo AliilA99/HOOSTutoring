@@ -11,7 +11,7 @@
 
   <body>
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -24,19 +24,18 @@
   </div>
 </nav>
 
-    <div class="text-center">
-        <h3>Create Tutoring Session</h3>
-        <div class="text-center">
-            <form method="POST" class="post-form">
-                {% csrf_token %}
-                {{ form | crispy}}
-                <div align="center">
-                 <button class="btn btn-outline-info" type="submit">Submit</button>
-                 <button class="btn btn-outline-danger"><a href="{% url 'home' %}">Cancel</a></button>
-                </div>
-            </form>
-        </div>  
+  <div class="content-section">
+     <div class="text-center">
+      <form method="POST">
+        {% csrf_token %}
+          {{ form | crispy}}
+        <div class="form-group">
+            <button class="btn btn-outline-success" type="submit">Update</button>
+            <a class="btn btn-outline-danger" href="{% url 'session_view' %}">Cancel</a>
+        </div>
+      </form>
     </div>
+  </div>
 
   </body>
 </html>

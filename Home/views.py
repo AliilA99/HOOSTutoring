@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView, UpdateView
 from django.forms import ModelForm
-from Home.models import Session
+from .models import Session
+
 
 
 class SessionForm(ModelForm):
@@ -22,6 +23,19 @@ def session_create(request):
 
 	return render(request, template_name, {'form':form})
 
+
+class SessionUpdateView(UpdateView):
+	model = Session
+	fields = [
+		'study_area',
+		'capacity',
+		'location',
+		'date',
+		'time',
+		'description',
+	]
+	template_name = 'Home/session_update.html'
+	success_url = '/home/'
 
 class SessionListView(ListView):
 	model = Session
@@ -42,7 +56,10 @@ class SessionDeleteView(DeleteView):
 	template_name = 'Home/session_delete.html'
 	success_url = '/home/'
 
-
 def home(request):
 	return render(request,'Home/home.html')
+
+def login(request):
+	template_name = 'Home/login.html'
+	return render(request, template_name)
 

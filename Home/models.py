@@ -85,7 +85,7 @@ class Session(models.Model):
     description = models.CharField(max_length=200)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'session'
 
     def __str__(self):
