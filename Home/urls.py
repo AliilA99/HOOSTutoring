@@ -8,6 +8,7 @@ urlpatterns = [
 	
 		path('', views.login, name = 'login'),
 		path('home/', views.home, name = 'home'),
+		 path('sort/', views.sort, name = 'sort'),
 		path('create/', views.session_create, name = 'session_create'),
 		path('view/', SessionListView.as_view(), name = 'session_view'),
 		path('view/<int:pk>', SessionDetailView.as_view(), name = 'session_detail'),

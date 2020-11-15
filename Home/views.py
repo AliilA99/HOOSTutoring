@@ -138,6 +138,21 @@ def home(request):
 			'''
 	return render(request,'Home/home.html')
 
+def is_valid_search(param):
+    return param != '' and param is not None
+
+def sort(request):
+	template = 'Home/session_view.html'
+	results = Session.objects.all()
+	study_area = request.GET.get('study_area')
+
+	if is_valid_search(study_area):
+		results = results.filter(study_area=study_area)
+ 
+	context = {"sessions": results}
+	
+	return render(request, template, context)
+
 def login(request):
 	template_name = 'Home/login.html'
 	return render(request, template_name)
