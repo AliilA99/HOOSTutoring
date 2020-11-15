@@ -57,8 +57,8 @@ def session_create(request):
 			u = User(computingid=request.GET['computingid'], name_last=request.GET['name_last'],
 					 name_first=request.GET['name_first'])
 			u.save()
-
-		new_session = Session(study_area=request.GET['study_area'], capacity=request.GET['capacity'], location=request.GET['location'], description=request.GET['description'], time=datetime.datetime.strptime(request.GET['time'], '%H:%M:%S').time(), date=datetime.datetime.strptime(request.GET['date'], "%Y-%m-%d").date())
+		# , time=datetime.datetime.strptime(request.GET['time'], '%H:%M:%S').time(), date=datetime.datetime.strptime(request.GET['date'], "%Y-%m-%d").date()
+		new_session = Session(study_area=request.GET['study_area'], capacity=request.GET['capacity'], location=request.GET['location'], description=request.GET['description'])
 		new_session.save()
 		cur_session_id = Session.objects.latest('sessionid').sessionid
 		creates = Creates(computingid=request.GET['computingid'], sessionid = cur_session_id)
