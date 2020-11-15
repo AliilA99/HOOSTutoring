@@ -27,7 +27,8 @@
     <div class="text-center">
         <h3>Create Tutoring Session</h3>
         <div class="text-center">
-            <form method="POST" class="post-form">
+            <!--<form method="POST" class="post-form">-->
+            <form action="{% url 'session_create' %}">
                 {% csrf_token %}
                 <!--{{ form1 | crispy}}-->
                 <!--{{ form2 | crispy}}-->
@@ -50,7 +51,7 @@
                 <label for="description">Description:</label><br>
                 <input type="text" id="description" name="description"><br>
                 <div align="center">
-                 <input type="submit" value="Submit" action="{% url 'session_create' %}">
+                    <button class="btn btn-outline-primary">Submit</button>
                  <button class="btn btn-outline-danger"><a href="{% url 'home' %}">Cancel</a></button>
                 </div>
             </form>
