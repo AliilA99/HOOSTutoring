@@ -5,8 +5,10 @@ from django.core.paginator import Paginator
 from django.views.generic.edit import DeleteView, UpdateView
 from django.forms import ModelForm
 from django.http import HttpResponseRedirect
+from django.utils.dateparse import parse_date
 from Home.models import User, Creates, Session
 from django.contrib import messages
+import datetime
 
 
 
@@ -26,6 +28,7 @@ def login(request):
 	return render(request, template_name)
 
 def session_create(request):
+	'''
 	template_name = 'Home/session_create.html'
 	form1 = UserForm(request.POST or None)
 	form2 = SessionForm(request.POST or None)
@@ -39,8 +42,38 @@ def session_create(request):
 		creates = Creates(computingid = computingid, sessionid = sessionid)
 		creates.save()
 		return redirect('home')
+	'''
+	template_name = 'Home/session_create.html'
 
-	return render(request, template_name, {'form1':form1, 'form2':form2})
+	if request.method=='GET' and 'computingid' in request.GET:
+		user_in = False
+		for i in User.objects.all():
+			if i.computingid == request.GET['computingid']:
+				user_in = True
+				if i.name_first != request.GET['name_first'] or i.name_last != request.GET['name_last']:
+					return render(request, template_name)
+					#Redirecting back to create page if it sees it exists AND the names don't match - will implement error later
+		if not user_in:
+			u = User(computingid=request.GET['computingid'], name_last=request.GET['name_last'],
+					 name_first=request.GET['name_first'])
+			u.save()
+		# , time=datetime.datetime.strptime(request.GET['time'], '%H:%M:%S').time(), date=datetime.datetime.strptime(request.GET['date'], "%Y-%m-%d").date()
+		new_session = Session(study_area=request.GET['study_area'], capacity=request.GET['capacity'], location=request.GET['location'], description=request.GET['description'], time=datetime.datetime.strptime(request.GET['time'], '%H:%M:%S').time(), date=datetime.datetime.strptime(request.GET['date'], "%Y-%m-%d").date())
+		new_session.save()
+		cur_session_id = Session.objects.latest('sessionid').sessionid
+		creates = Creates(computingid=request.GET['computingid'], sessionid = cur_session_id)
+		creates.save()
+
+		print("Creates Items")
+		print(Creates.objects.all())
+
+		print("Sessions")
+		print(Session.objects.all())
+
+			# If user isn't in, then create a new user object, otherwise don't
+		return redirect('home')
+
+	return render(request, template_name)
 
 
 class SessionUpdateView(UpdateView):
