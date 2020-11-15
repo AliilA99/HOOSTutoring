@@ -45,7 +45,8 @@ def session_create(request):
 	'''
 	template_name = 'Home/session_create.html'
 
-	if request.method == 'GET':
+	#if request.method == 'GET':
+	try:
 		user_in = False
 		for i in User.objects.all():
 			if i.computingid == request.GET['computingid']:
@@ -62,11 +63,11 @@ def session_create(request):
 		new_session.save()
 		creates = Creates(computingid=request.GET['computingid'], sessionid = cur_session_id)
 		creates.save()
-		
+
 			# If user isn't in, then create a new user object, otherwise don't
 		return redirect('home')
-
-	return render(request, template_name)
+	except:
+		return render(request, template_name)
 
 
 class SessionUpdateView(UpdateView):
