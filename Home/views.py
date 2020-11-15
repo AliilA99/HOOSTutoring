@@ -45,7 +45,7 @@ def session_create(request):
 	'''
 	template_name = 'Home/session_create.html'
 
-	if request.method == 'GET' and (request.GET['computingid'] is not None and request.GET['computingid'] != ''):
+	if request.method=='GET' and 'computingid' in request.GET:
 		user_in = False
 		for i in User.objects.all():
 			if i.computingid == request.GET['computingid']:
