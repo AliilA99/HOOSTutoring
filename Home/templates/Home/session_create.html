@@ -29,8 +29,26 @@
         <div class="text-center">
             <form method="POST" class="post-form">
                 {% csrf_token %}
-                {{ form1 | crispy}}
-                {{ form2 | crispy}}
+                <!--{{ form1 | crispy}}-->
+                <!--{{ form2 | crispy}}-->
+                <label for="computingid">Computing ID:</label><br>
+                <input type="text" id="computingid" name="computingid"><br>
+                <label for="name_first">First Name:</label><br>
+                <input type="text" id="name_first" name="name_first"><br>
+                <label for="name_last">Last Name:</label><br>
+                <input type="text" id="name_last" name="name_last"><br>
+                <label for="study_area">Study Area:</label><br>
+                <input type="text" id="study_area" name="study_area"><br>
+                <label for="capacity">Capacity:</label><br>
+                <input type="text" id="capacity" name="capacity"><br>
+                <label for="location">Location:</label><br>
+                <input type="text" id="location" name="location"><br>
+                <label for="date">Date (in Year-Month-Date format):</label><br>
+                <input type="text" id="date" name="date"><br>
+                <label for="time">Time (in Hour:Minute:Second format):</label><br>
+                <input type="text" id="time" name="time"><br>
+                <label for="description">Description:</label><br>
+                <input type="text" id="description" name="description"><br>
                 <div align="center">
                  <button class="btn btn-outline-info" type="submit">Submit</button>
                  <button class="btn btn-outline-danger"><a href="{% url 'home' %}">Cancel</a></button>
