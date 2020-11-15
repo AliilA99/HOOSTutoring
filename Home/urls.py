@@ -6,8 +6,8 @@ from . views import SessionListView, SessionDetailView, SessionUpdateView
 
 urlpatterns = [
 	
-		path('', views.login, name = 'login'),
-		path('home/', views.home, name = 'home'),
+		#path('', views.login, name = 'login'),
+		path('', views.home, name = 'home'),
 		path('sort/', views.sort, name = 'sort'),
 		path('create/', views.session_create, name = 'session_create'),
 		path('view/', SessionListView.as_view(), name = 'session_view'),
