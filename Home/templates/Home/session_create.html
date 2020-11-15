@@ -32,6 +32,10 @@
                 {% csrf_token %}
                 <!--{{ form1 | crispy}}-->
                 <!--{{ form2 | crispy}}-->
+                {% for message in messages %}
+                        <center><p id="messages">{{message}} </p></center>
+                {% endfor %}
+
                 <label for="computingid">Computing ID:</label><br>
                 <input type="text" id="computingid" name="computingid"><br>
                 <label for="name_first">First Name:</label><br>
