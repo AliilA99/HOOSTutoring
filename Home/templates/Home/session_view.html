@@ -25,14 +25,27 @@
 </nav>
 
     <div class="text-center">
-        <h3>Available Session(s)</h3>
+      <form method="GET" action="{% url 'sort' %}">
+        <div class="form-row-center">
+          <div class="form-group col-lg-offset-4">
+            <input type="search" class="form-control" name="study_area" value="{{request.GET.study_area}}" placeholder="Study Area" style="text-align: center;">
+          </div>
+        </div>
+          
+        <button type="submit" class="btn btn-outline-dark">Search</button>
+        <a class = "btn btn-outline-dark" href="{% url 'session_view' %}" role = "button">Clear</a><br><br>
+      </form>
+    </div>
+
+
         <div class="text-center">
+        <h3>Available Session(s)</h3>
           {% for session in sessions %}
               <h4>Study area: {{session.study_area}}</h4>
+               <h4>Date: {{session.date}}</h4>
               <button class="btn btn-outline-success"><a href="{% url 'session_update' session.sessionid %}">Update</a></button>
               <button class="btn btn-outline-primary"><a href="{% url 'session_detail' session.sessionid %}">Detail</a></button>
               <button class="btn btn-outline-danger"><a href="{% url 'session_delete' session.sessionid %}">Delete</a></button>
-              
               <hr class="style5">
           {% endfor %}
 
@@ -45,10 +58,7 @@
                 <a  class="btn btn-outline-dark mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
             {% endif %}
          {% endif %} 
-
-         </div> 
-        </div>  
-    </div>
+      </div>
 
   </body>
 </html>
