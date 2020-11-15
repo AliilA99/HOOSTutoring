@@ -51,14 +51,14 @@ def session_create(request):
 			if i.computingid == request.GET['computingid']:
 				user_in = True
 				if i.name_first != request.GET['name_first'] or i.name_last != request.GET['name_last']:
-					return render(request, template_name, {"messages": ["The computing ID is already in the database but your name isn't correct!"]})
+					return render(request, template_name)
 					#Redirecting back to create page if it sees it exists AND the names don't match - will implement error later
 		if not user_in:
 			u = User(computingid=request.GET['computingid'], name_last=request.GET['name_last'],
 					 name_first=request.GET['name_first'])
 			u.save()
 		# , time=datetime.datetime.strptime(request.GET['time'], '%H:%M:%S').time(), date=datetime.datetime.strptime(request.GET['date'], "%Y-%m-%d").date()
-		new_session = Session(study_area=request.GET['study_area'], capacity=request.GET['capacity'], location=request.GET['location'], description=request.GET['description'], time=datetime.datetime.strptime(request.GET['time'], '%H:%M:%S').time(), date=datetime.datetime.strptime(request.GET['date'], "%Y-%m-%d").date())
+		new_session = Session(study_area=request.GET['study_area'], capacity=request.GET['capacity'], location=request.GET['location'], description=request.GET['description'])
 		new_session.save()
 		cur_session_id = Session.objects.latest('sessionid').sessionid
 		creates = Creates(computingid=request.GET['computingid'], sessionid = cur_session_id)
@@ -73,7 +73,21 @@ def session_create(request):
 			# If user isn't in, then create a new user object, otherwise don't
 		return redirect('home')
 
-	return render(request, template_name, {"messages": []})
+	return render(request, template_name)
+
+def session_delete(request):
+	template_name = 'Home/session_delete.html'
+	if request.method=='GET' and 'computingid' in request.GET and 'sessionid' in request.GET: 
+		user_equals = False
+		for i in Creates.objects.all():
+			if i.computingid == request.GET['computingid']:
+				if str(i.sessionid) == request.GET['sessionid']:
+					user_equals = True
+		if user_equals:
+			Session.objects.filter(sessionid = request.GET['sessionid']).delete()
+			Creates.objects.filter(sessionid = request.GET['sessionid'], computingid = request.GET['computingid']).delete()
+		return redirect('home')
+	return render(request, template_name)
 
 
 class SessionUpdateView(UpdateView):
@@ -103,10 +117,6 @@ class SessionDetailView(DetailView):
 	model = Session
 	template_name = 'Home/session_detail.html'
 
-class SessionDeleteView(DeleteView):
-	model = Session
-	template_name = 'Home/session_delete.html'
-	success_url = '/home/'
 
 def home(request):
 	'''
@@ -137,21 +147,6 @@ def home(request):
 			# Redirect back if userid already found in DB, otherwise set session var to user id
 			'''
 	return render(request,'Home/home.html')
-
-def is_valid_search(param):
-    return param != '' and param is not None
-
-def sort(request):
-	template = 'Home/session_view.html'
-	results = Session.objects.all()
-	study_area = request.GET.get('study_area')
-
-	if is_valid_search(study_area):
-		results = results.filter(study_area=study_area)
- 
-	context = {"sessions": results}
-	
-	return render(request, template, context)
 
 def login(request):
 	template_name = 'Home/login.html'
