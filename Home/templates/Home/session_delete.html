@@ -24,18 +24,25 @@
   </div>
 </nav>
 
-   <div class="content-section">
-      <form method="POST">
-        {% csrf_token %}
-            <div class="alert alert-danger" role="alert">
-                Are you sure you want to delete the session ? 
-            </div>
-            
-          <div class="form-group">
-             <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
-              <a class="btn btn-outline-info" href="{% url 'session_view' %}">Cancel</a>
-          </div>
-      </form>
+    <div class="text-center">
+        <h3>Delete Tutoring Session</h3>
+        <div class="text-center">
+            <!--<form method="POST" class="post-form">-->
+            <form action="{% url 'session_delete' %}">
+                {% csrf_token %}
+                <!--{{ form1 | crispy}}-->
+                <!--{{ form2 | crispy}}-->
+                <label for="computingid">Computing ID:</label><br>
+                <input type="text" id="computingid" name="computingid"><br>
+                <label for="sessionid">Session ID:</label><br>
+                <input type="text" id="sessionid" name="sessionid"><br>
+                <div align="center">
+                    <button class="btn btn-outline-primary">Yes, Delete</button>
+                 <button class="btn btn-outline-danger"><a href="{% url 'home' %}">Cancel</a></button>
+                </div>
+            </form>
+        </div>  
+    </div>
 
   </body>
 </html>
