@@ -6,7 +6,7 @@ from django.views.generic.edit import DeleteView, UpdateView
 from django.forms import ModelForm
 from django.http import HttpResponseRedirect
 from django.utils.dateparse import parse_date
-from Home.models import User, Creates, Session
+from Home.models import User, Creates, Session, Has, UserPhone, Bulletin
 from django.contrib import messages
 import datetime
 
@@ -63,7 +63,12 @@ def session_create(request):
 		cur_session_id = Session.objects.latest('sessionid').sessionid
 		creates = Creates(computingid=request.GET['computingid'], sessionid = cur_session_id)
 		creates.save()
-
+		if not Has.objects.filter(computingid = request.GET['computingid'], areaid = request.GET['study_area']).exists():
+			Has.objects.create(computingid = request.GET['computingid'], areaid = request.GET['study_area'])
+		if not Bulletin.objects.filter(bulletinid = request.GET['study_area']).exists():
+			Bulletin.objects.create(bulletinid = request.GET['study_area'])
+		if not UserPhone.objects.filter(computingid = request.GET['computingid'], phone = request.GET['phone']).exists():
+			UserPhone.objects.create(computingid = request.GET['computingid'], phone = request.GET['phone'])
 		print("Creates Items")
 		print(Creates.objects.all())
 
@@ -84,8 +89,11 @@ def session_delete(request):
 				if str(i.sessionid) == request.GET['sessionid']:
 					user_equals = True
 		if user_equals:
+			cur_session_area = Session.objects.latest('sessionid').study_area
 			Session.objects.filter(sessionid = request.GET['sessionid']).delete()
 			Creates.objects.filter(sessionid = request.GET['sessionid'], computingid = request.GET['computingid']).delete()
+			Has.objects.filter(areaid= cur_session_area, computingid = request.GET['computingid']).delete()
+			Bulletin.objects.filter(bulletinid= cur_session_area).delete()
 		return redirect('home')
 	return render(request, template_name)
 
