@@ -23,6 +23,19 @@
     </ul>
   </div>
 </nav>
+    
+ <div class="text-center">
+  <form method="GET" action="{% url 'sort' %}">
+    <div class="form-row-center">
+      <div class="form-group col-lg-offset-4">
+        <input type="search" class="form-control" name="study_area" value="{{request.GET.study_area}}" placeholder="Study Area" style="text-align: center;">
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-outline-dark">Search</button>
+    <a class = "btn btn-outline-dark" href="{% url 'session_view' %}" role = "button">Clear</a><br><br>
+  </form>
+</div>
 
     <div class="text-center">
         <h3>Available Session(s)</h3>
