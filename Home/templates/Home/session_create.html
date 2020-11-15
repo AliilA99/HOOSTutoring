@@ -50,7 +50,7 @@
                 <label for="description">Description:</label><br>
                 <input type="text" id="description" name="description"><br>
                 <div align="center">
-                 <button class="btn btn-outline-info" type="submit">Submit</button>
+                 <input type="submit" value="Submit" action="{% url 'create' %}">
                  <button class="btn btn-outline-danger"><a href="{% url 'home' %}">Cancel</a></button>
                 </div>
             </form>
