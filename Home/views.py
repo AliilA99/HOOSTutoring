@@ -104,7 +104,7 @@ class SessionUpdateView(UpdateView):
 		'description',
 	]
 	template_name = 'Home/session_update.html'
-	success_url = '/home/'
+	success_url = '/'
 
 class SessionListView(ListView):
 	model = Session
