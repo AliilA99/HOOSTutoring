@@ -51,7 +51,7 @@ def session_create(request):
 			if i.computingid == request.GET['computingid']:
 				user_in = True
 				if i.name_first != request.GET['name_first'] or i.name_last != request.GET['name_last']:
-					return render(request, template_name)
+					return render(request, template_name, {'messages': ["This computing ID is in the database, but the names don't match the ones recorded!"]})
 					#Redirecting back to create page if it sees it exists AND the names don't match - will implement error later
 		if not user_in:
 			u = User(computingid=request.GET['computingid'], name_last=request.GET['name_last'],
@@ -69,16 +69,11 @@ def session_create(request):
 			Bulletin.objects.create(bulletinid = request.GET['study_area'])
 		if not UserPhone.objects.filter(computingid = request.GET['computingid'], phone = request.GET['phone']).exists():
 			UserPhone.objects.create(computingid = request.GET['computingid'], phone = request.GET['phone'])
-		print("Creates Items")
-		print(Creates.objects.all())
-
-		print("Sessions")
-		print(Session.objects.all())
 
 			# If user isn't in, then create a new user object, otherwise don't
 		return redirect('home')
 
-	return render(request, template_name)
+	return render(request, template_name, {'messages': []})
 
 def session_delete(request):
 	template_name = 'Home/session_delete.html'
