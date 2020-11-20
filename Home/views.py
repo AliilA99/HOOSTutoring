@@ -160,7 +160,7 @@ def sort(request):
 	study_area = request.GET.get('study_area')
 
 	if is_valid_search(study_area):
-		results = results.filter(study_area=study_area)
+		results = results.filter(study_area__icontains=study_area)
  
 	context = {"sessions": results}
 	
